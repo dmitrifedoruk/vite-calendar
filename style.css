@@ -1,0 +1,192 @@
+@import url('https://fonts.googleapis.com/css2?family=Wittgenstein:ital,wght@0,400..900;1,400..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bona+Nova+SC:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+
+}
+
+a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
+}
+a:hover {
+  color: #535bf2;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  /*min-width: 320px;*/
+  /*min-height: 100vh;*/
+  color: #c2af30;
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+#app {
+  width: 100vw;
+  /*max-width: 1280px;*/
+  /*margin: 0 auto;*/
+  padding: 2rem;
+  text-align: center;
+  display: grid;
+  justify-content: center;
+  background-color: #888888;
+}
+
+#wrapper {
+  display: grid;
+  justify-content: center;
+  width: 80vw;
+  background-color: #646cff;
+  /*background-color: rgba(208, 210, 204, 0.71);*/
+  padding: 20px 20px 40px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+#monthHeading {
+  display: grid;
+  justify-content: left;
+}
+
+#month {
+  font-family: "Wittgenstein", Garamond, serif;
+}
+
+#weekdayHeading {
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: repeat(7,calc(100vw/12));
+}
+
+.weekday:first-child {
+  border-left: solid;
+}
+
+.weekday {
+  border-top: solid;
+  border-right: solid;
+  border-bottom: solid;
+  font-family: "Bona Nova SC", Georgia, serif;
+  font-size: 1vw;
+  font-weight: bold;
+}
+
+#dateGrid {
+  display: grid;
+  grid-auto-flow: row;
+  grid-template-columns: repeat(7,calc(100vw/12));
+  grid-template-rows: repeat(5,calc(100vw/12));
+  /*height: 80vh;*/
+}
+
+.dateBlock:nth-child(7n+1),.dateBlock:first-child{
+  border-left: solid;
+}
+
+.dateBlock {
+  display: grid;
+  justify-content: left;
+  align-content: start;
+  padding: 5px;
+  border-right: solid;
+  border-bottom: solid;
+  font-family: "Poppins", Tahoma, sans-serif;
+  font-size: 1.5vw;
+  font-weight: bold;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.vanilla:hover {
+  filter: drop-shadow(0 0 2em #f7df1eaa);
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
+
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+button:hover {
+  border-color: #646cff;
+}
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+  a:hover {
+    color: #747bff;
+  }
+  button {
+    background-color: #f9f9f9;
+  }
+}
