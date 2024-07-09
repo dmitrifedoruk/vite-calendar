@@ -4,11 +4,11 @@
 
 :root {
 
-  --grid-division-big: 12;
-  --grid-division-small: 8.5;
+  --grid-division-big: 11;
+  --grid-division-small: 8;
 
   --border-width-big: 5px;
-  --border-width-small: 10px;
+  --border-width-small: 1px;
 
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   /*line-height: 1.5;*/
@@ -37,8 +37,8 @@ a:hover {
 
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
+  /*display: flex;*/
+  /*place-items: center;*/
   /*min-width: 320px;*/
   /*min-height: 100vh;*/
   color: #c2af30;
@@ -53,7 +53,7 @@ h1 {
   width: 100vw;
   /*max-width: 1280px;*/
   /*margin: 0 auto;*/
-  padding: 2rem;
+  /*padding: 2rem;*/
   text-align: center;
   display: grid;
   justify-content: center;
@@ -64,7 +64,7 @@ h1 {
   display: grid;
   grid-auto-rows: min-content;
   justify-content: center;
-  width: 80vw;
+  width: 75vw;
   /*background-color: #646cff;*/
   background-color: rgb(144, 78, 162);
   padding: 20px 20px 40px;
@@ -89,16 +89,16 @@ h1 {
 }
 
 .weekday:first-child {
-  border-left: solid;
+  /*border-left: solid;*/
 }
 
 .weekday {
   border-width: var(--border-width-big);
-  border-top: solid;
-  border-right: solid;
+  /*border-top: solid;*/
+  /*border-right: solid;*/
   border-bottom: solid;
   font-family: "Bona Nova SC", Georgia, serif;
-  font-size: 1vw;
+  font-size: 1.25vw;
   font-weight: bold;
 }
 
@@ -138,10 +138,10 @@ h1 {
 
 
   #app {
-    width: 95vw;
+    width: 100vw;
     /*max-width: 1280px;*/
     margin: 0 auto;
-    padding: 2rem;
+    /*padding: 2rem;*/
     text-align: center;
     display: grid;
     justify-content: center;
@@ -154,7 +154,7 @@ h1 {
   #wrapper {
     display: grid;
     justify-content: center;
-    width: 90vw;
+    width: 100vw;
     /*background-color: #646cff;*/
     background-color: rgb(144, 78, 162);
     padding: 10px 10px 20px;
@@ -185,11 +185,8 @@ h1 {
 
   .weekday {
     border-width: var(--border-width-small);
-    border-top: solid;
-    border-right: solid;
-    border-bottom: solid;
     font-family: "Bona Nova SC", Georgia, serif;
-    font-size: 1.8vw;
+    font-size: 2vw;
     font-weight: bold;
     /*padding: 5px;*/
   }
