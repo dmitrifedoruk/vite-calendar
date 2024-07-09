@@ -7,8 +7,7 @@
   --grid-division-big: 11;
   --grid-division-small: 8;
 
-  --border-width-big: 5px;
-  --border-width-small: 1px;
+  --border-width: 2px;
 
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   /*line-height: 1.5;*/
@@ -88,15 +87,10 @@ h1 {
   grid-template-columns: repeat(7,calc(100vw/var(--grid-division-big)));
 }
 
-.weekday:first-child {
-  /*border-left: solid;*/
-}
 
 .weekday {
-  border-width: var(--border-width-big);
-  /*border-top: solid;*/
-  /*border-right: solid;*/
-  border-bottom: solid;
+  border-width: 2px;
+  border-bottom-style: solid;
   font-family: "Bona Nova SC", Georgia, serif;
   font-size: 1.25vw;
   font-weight: bold;
@@ -111,18 +105,18 @@ h1 {
 }
 
 .dateBlock:nth-child(7n+1),.dateBlock:first-child{
-  /*border-width: var(--border-width-big);*/
-  border-left: solid;
+  border-left-style: solid;
 }
 
 .dateBlock {
+  box-sizing: content-box;
   display: grid;
   justify-content: left;
   align-content: start;
   padding: 5px;
-  border-width: var(--border-width-big);
-  border-right: solid;
-  border-bottom: solid;
+  border-width: 2px;
+  border-right-style: solid;
+  border-bottom-style: solid;
   font-family: "Poppins", Tahoma, sans-serif;
   font-size: 1.5vw;
   font-weight: bold;
@@ -181,7 +175,7 @@ h1 {
 
 
   .weekday {
-    border-width: var(--border-width-small);
+    border-width: 2px;
     font-family: "Bona Nova SC", Georgia, serif;
     font-size: 2vw;
     font-weight: bold;
@@ -201,9 +195,9 @@ h1 {
     justify-content: left;
     align-content: start;
     padding: 5px;
-    border-width: var(--border-width-small);
-    border-right: solid;
-    border-bottom: solid;
+    border-width: 2px;
+    border-right-style: solid;
+    border-bottom-style: solid;
     font-family: "Poppins", Tahoma, sans-serif;
     font-size: 2.25vw;
     font-weight: bold;
