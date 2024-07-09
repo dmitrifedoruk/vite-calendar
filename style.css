@@ -5,7 +5,7 @@
 :root {
 
   --grid-division-big: 12;
-  --grid-division-small: 9;
+  --grid-division-small: 8.5;
 
   --border-width-big: 5px;
   --border-width-small: 10px;
@@ -156,7 +156,7 @@ h1 {
     justify-content: center;
 
 
-    width: 80vw;
+    width: 85vw;
     /*background-color: #646cff;*/
     background-color: rgb(144, 78, 162);
     padding: 10px 10px 20px;
@@ -171,7 +171,7 @@ h1 {
   }
 
   h1 {
-    font-size: 3vw;
+    font-size: 4vw;
   }
 
   #weekdayHeading {
@@ -191,8 +191,9 @@ h1 {
     border-right: solid;
     border-bottom: solid;
     font-family: "Bona Nova SC", Georgia, serif;
-    font-size: 1vw;
+    font-size: 1.8vw;
     font-weight: bold;
+    padding: 5px;
   }
 
   #dateGrid {
@@ -212,7 +213,7 @@ h1 {
     border-right: solid;
     border-bottom: solid;
     font-family: "Poppins", Tahoma, sans-serif;
-    font-size: 1.5vw;
+    font-size: 2.25vw;
     font-weight: bold;
   }
 
