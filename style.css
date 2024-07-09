@@ -59,6 +59,7 @@ h1 {
 
 #wrapper {
   display: grid;
+  grid-auto-rows: min-content;
   justify-content: center;
   width: 80vw;
   /*background-color: #646cff;*/
@@ -147,7 +148,7 @@ h1 {
   #wrapper {
     display: grid;
     justify-content: center;
-    height: 80vh;
+
 
     width: 80vw;
     /*background-color: #646cff;*/
