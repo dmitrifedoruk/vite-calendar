@@ -154,9 +154,7 @@ h1 {
   #wrapper {
     display: grid;
     justify-content: center;
-
-
-    width: 85vw;
+    width: 90vw;
     /*background-color: #646cff;*/
     background-color: rgb(144, 78, 162);
     padding: 10px 10px 20px;
@@ -193,7 +191,7 @@ h1 {
     font-family: "Bona Nova SC", Georgia, serif;
     font-size: 1.8vw;
     font-weight: bold;
-    padding: 5px;
+    /*padding: 5px;*/
   }
 
   #dateGrid {
