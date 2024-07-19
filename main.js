@@ -23,6 +23,15 @@ const weekdays = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','S
 //current date
 const today = new Date();
 
+const day = today.getDate();
+const month =  today.getMonth();
+const year = today.getFullYear();
+
+
+function dateString(month, day, year) {
+    return (month+1).toString()+"-"+day.toString()+"-"+year.toString()
+}
+
 //option to extract month name from date
 const options = { month: "long" };
 document.querySelector('#month').innerHTML =
@@ -57,13 +66,23 @@ let count = 1;
 for(let i = 1; i < 36; i++){
     let dateBlock = document.createElement("div");
     dateBlock.classList.add("dateBlock");
+
     if(i >= firstIndex && i <= lastIndex){
         dateBlock.innerText = count.toString();
+        dateBlock.setAttribute("data-date",dateString(month,count,year));
+
+        if(Date.parse(dateString(month,count,year)).valueOf() === Date.parse(dateString(month, day, year))){
+            dateBlock.classList.add("todayBlock");
+        }
+
         count++;
     }
     document.querySelector('#dateGrid').appendChild(dateBlock);
-
 }
+
+
+
+
 
 
 

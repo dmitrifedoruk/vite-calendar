@@ -7,6 +7,8 @@
   --grid-division-big: 11;
   --grid-division-small: 8;
 
+  --grid-bg-color: rgb(144, 78, 162);
+
   --border-width: 2px;
 
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
@@ -65,7 +67,7 @@ h1 {
   justify-content: center;
   width: 75vw;
   /*background-color: #646cff;*/
-  background-color: rgb(144, 78, 162);
+  background-color: var(--grid-bg-color);
   padding: 20px 20px 40px;
   margin-right: auto;
   margin-left: auto;
@@ -122,6 +124,10 @@ h1 {
   font-weight: bold;
 }
 
+.todayBlock {
+  background-color: color-mix(in srgb, var(--grid-bg-color),white 10%);
+}
+
 
 @media only screen and (max-width: 800px) {
 
@@ -150,7 +156,7 @@ h1 {
     justify-content: center;
     width: 100vw;
     /*background-color: #646cff;*/
-    background-color: rgb(144, 78, 162);
+    background-color: var(--grid-bg-color);
     padding: 10px 10px 20px;
     margin-right: auto;
     margin-left: auto;
@@ -202,6 +208,8 @@ h1 {
     font-size: 2.25vw;
     font-weight: bold;
   }
+
+
 
 
 
