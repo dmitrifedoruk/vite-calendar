@@ -125,7 +125,7 @@ h1 {
 }
 
 .todayBlock {
-  background-color: color-mix(in srgb, var(--grid-bg-color),white 10%);
+  background-color: color-mix(in srgb, var(--grid-bg-color), slateblue 40%);
 }
 
 
