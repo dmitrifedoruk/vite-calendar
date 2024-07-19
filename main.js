@@ -4,7 +4,7 @@ import './style.css'
 document.querySelector('#app').innerHTML = `
   <div>
     <div id="wrapper">
-        <div id="monthHeading"><h1 id="month"></h1></div>
+        <div id="monthHeading"><h1 id="month"></h1><h1 id="year"></h1></div>
         <div id="weekdayHeading"></div>
         <div id="dateGrid"></div>
 
@@ -36,6 +36,9 @@ function dateString(month, day, year) {
 const options = { month: "long" };
 document.querySelector('#month').innerHTML =
     new Intl.DateTimeFormat("en-US", options).format(today);
+
+//set year on display
+document.querySelector('#year').innerHTML = year.toString();
 
 
 //generates headings for each weekday "column" using array

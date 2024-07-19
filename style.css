@@ -75,11 +75,20 @@ h1 {
 
 #monthHeading {
   display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-auto-flow: column;
   justify-content: left;
   height: 8vw;
+  width: 100%;
 }
 
 #month {
+  justify-self: left;
+  font-family: "Wittgenstein", Garamond, serif;
+}
+
+#year {
+  justify-self: right;
   font-family: "Wittgenstein", Garamond, serif;
 }
 
