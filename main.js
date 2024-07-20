@@ -59,12 +59,6 @@ const firstDayOfWeek = new Date(today.getFullYear(),today.getMonth(),8).getDay()
 
 const priorMonthDaysStart = daysInPriorMonth - (firstDayOfWeek - 1) ;
 
-console.log(daysInPriorMonth);
-console.log(daysInMonth);
-console.log(firstDayOfWeek);
-console.log(priorMonthDaysStart);
-
-
 //establishes an index to determine what range to offset the listed dates based on what day is the first
 //of the month
 const firstIndex = firstDayOfWeek + 1;
@@ -104,6 +98,9 @@ for(let i = 1; i < 36; i++){
         dateBlock.setAttribute("data-date",dateString(month,count,year));
         postCount++;
     }
+    dateBlock.addEventListener("click",function (e){
+        this.classList.toggle("highlighted")
+    });
     document.querySelector('#dateGrid').appendChild(dateBlock);
 }
 

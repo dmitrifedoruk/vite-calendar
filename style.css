@@ -142,7 +142,9 @@ h1 {
   color: rgba(194, 175, 48, 0.5);
 }
 
-
+.highlighted {
+  background-color: #6167c0;
+}
 
 
 @media only screen and (max-width: 800px) {
