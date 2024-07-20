@@ -8,6 +8,7 @@
   --grid-division-small: 8;
 
   --grid-bg-color: rgb(144, 78, 162);
+  --grid-font-color: #c2af30;
 
   --border-width: 2px;
 
@@ -42,7 +43,7 @@ body {
   /*place-items: center;*/
   /*min-width: 320px;*/
   /*min-height: 100vh;*/
-  color: #c2af30;
+  color: var(--grid-font-color);
 }
 
 h1 {
@@ -136,6 +137,12 @@ h1 {
 .todayBlock {
   background-color: color-mix(in srgb, var(--grid-bg-color), slateblue 40%);
 }
+
+.priorAndNextMonth {
+  color: rgba(194, 175, 48, 0.5);
+}
+
+
 
 
 @media only screen and (max-width: 800px) {
