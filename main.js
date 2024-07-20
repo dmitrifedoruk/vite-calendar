@@ -76,6 +76,7 @@ for(let i = 1; i < 36; i++){
 
     if(i < firstIndex){
         let number = document.createElement("div");
+        number.inert = true;
         number.innerText = priorCountUp.toString();
         number.classList.add("priorAndNextMonth");
         dateBlock.appendChild(number);
@@ -83,7 +84,10 @@ for(let i = 1; i < 36; i++){
         priorCountUp++;
     }
     else if(i >= firstIndex && i <= lastIndex){
-        dateBlock.innerText = count.toString();
+        let number = document.createElement("div");
+        number.inert = true;
+        number.innerText = count.toString();
+        dateBlock.appendChild(number);
         dateBlock.setAttribute("data-date",dateString(month,count,year));
         if(Date.parse(dateString(month,count,year)).valueOf() === Date.parse(dateString(month, day, year))){
             dateBlock.classList.add("todayBlock");
@@ -92,6 +96,7 @@ for(let i = 1; i < 36; i++){
     }
     else if(i > lastIndex){
         let number = document.createElement("div");
+        number.inert = true;
         number.innerText = postCount.toString();
         number.classList.add("priorAndNextMonth");
         dateBlock.appendChild(number);
@@ -103,6 +108,9 @@ for(let i = 1; i < 36; i++){
     });
     document.querySelector('#dateGrid').appendChild(dateBlock);
 }
+
+
+
 
 
 
