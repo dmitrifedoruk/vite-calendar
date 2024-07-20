@@ -33,11 +33,13 @@ function dateString(month, day, year) {
 
 //option to extract month name from date
 const options = { month: "long" };
-document.querySelector('#month').innerHTML =
-    new Intl.DateTimeFormat("en-US", options).format(today);
+const monthName = new Intl.DateTimeFormat("en-US", options).format(today);
+document.querySelector('#month').innerHTML = monthName;
 
 //set year on display
 document.querySelector('#year').innerHTML = year.toString();
+
+document.querySelector("title").innerHTML = monthName + " " + year.toString();
 
 
 //generates headings for each weekday "column" using array
