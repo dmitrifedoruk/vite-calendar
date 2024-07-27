@@ -74,11 +74,101 @@ h1 {
   margin-left: auto;
 }
 
+#navBar {
+  display: grid;
+  grid-template-columns: 1fr min-content min-content;
+  grid-auto-flow: column;
+  align-content: end;
+  height: 3vw;
+  width: 100%;
+}
+
+.menuButton {
+  height: 2vw;
+  width: 2vw;
+  position: relative;
+  align-self: end;
+  background-color: #747bff;
+  border-radius: 50% 50%;
+}
+
+#rightButton {
+  justify-self: right;
+  left: 3vw;
+}
+
+#leftButton {
+  justify-self: left;
+  left: -3vw;
+}
+
+#rightButton:hover {
+  background-color: #6167c0;
+}
+
+#monthAndYearMenu {
+  display: grid;
+  gap: 0.4rem;
+  grid-template-columns: min-content min-content min-content;
+  grid-auto-flow: column;
+  height: 2vw;
+  /*width: 30vw;*/
+  position: relative;
+  left: 2.5vw;
+  align-content: center;
+  font-weight: bold;
+}
+
+#monthMenu {
+  display: grid;
+  gap: 0.4rem;
+  grid-auto-flow: column;
+  justify-self: right;
+}
+
+#yearMenu {
+  display: grid;
+  gap: 0.4rem;
+  grid-auto-flow: column;
+  justify-self: left;
+}
+
+#monthSelect, #yearSelect {
+  background-color: var(--grid-bg-color);
+  color: var(--grid-font-color);
+  font-weight: bold;
+  padding: 2px;
+}
+
+#submit {
+  background-color: var(--grid-bg-color);
+  color: var(--grid-font-color);
+  font-weight: bold;
+  padding: 2px;
+  /*width: 2vw;*/
+  justify-self: left;
+}
+
+
+option {
+  padding: 2px;
+}
+
+.hideMenu {
+  transition: opacity 0.5s ease-in-out;
+  opacity: 0;
+}
+
+.showMenu {
+  transition: opacity 0.5s ease-in-out .02s;
+  opacity: 1;
+}
+
+
 #monthHeading {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-auto-flow: column;
-  justify-content: left;
   height: 8vw;
   width: 100%;
 }
