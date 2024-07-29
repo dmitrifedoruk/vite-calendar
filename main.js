@@ -5,8 +5,8 @@ document.querySelector('#app').innerHTML = `
   <div>
     <div id="wrapper">
         <div id="navBar">
-            <div id="leftButton" class="menuButton"></div>
-            <div id="monthAndYearMenu" class="hideMenu">
+            <div id="leftButton" class="menuButton" title="tap to toggle month/year menu"></div>
+            <div id="monthAndYearMenu" class="hideMenu" inert>
                 <div id="monthMenu">
                     <label class="menuLabel">Month: </label>
                     <select id="monthSelect"></select>
@@ -37,9 +37,11 @@ function showMenu() {
     if (menu.classList[0] === "showMenu") {
         menu.classList.remove("showMenu");
         menu.classList.add("hideMenu");
+        menu.inert = true;
     } else {
         menu.classList.remove("hideMenu");
         menu.classList.add("showMenu");
+        menu.inert = false;
     }
 }
 
@@ -157,11 +159,14 @@ const day = today.getDate();
 const month =  today.getMonth();
 const year = today.getFullYear();
 
+console.log(month);
 
+
+//array of month names
 const months = ['January','February','March','April','May','June','July',
     'August','September','October','November','December'];
 
-//arrays of weekday names
+//array of weekday names
 const weekdays = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
 
 //generates headings for each weekday "column" using array
@@ -176,21 +181,25 @@ weekdays.forEach((element) => {
 //populates month select options from array
 months.forEach((element) => {
     let monthOption = document.createElement("option");
-    // weekday.classList.add("weekday");
     monthOption.innerText = element;
+    if(months[month] === element){monthOption.selected = true};
     document.querySelector('#monthSelect').appendChild(monthOption);}
 );
 
-//populates year select options from current year back to 1969
-for(let i = year; i >= 1969; i--) {
+//populates year select options
+for(let i = 2050; i >= 1900; i--) {
     let yearOption = document.createElement("option");
-    // weekday.classList.add("weekday");
     yearOption.innerText = i.toString();
+    if(i == year){yearOption.selected = true};
+    if(i%10 == 0 && i != 2050){
+        const space = document.createElement("option");
+        space.disabled = true;
+        document.querySelector('#yearSelect').appendChild(space);
+    }
     document.querySelector('#yearSelect').appendChild(yearOption);
 }
 
 createCalendar(today);
-
 
 
 
