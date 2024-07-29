@@ -152,6 +152,7 @@ h1 {
 
 option {
   padding: 2px;
+  font-weight: bold;
 }
 
 .hideMenu {
@@ -163,6 +164,8 @@ option {
   transition: opacity 0.5s ease-in-out .02s;
   opacity: 1;
 }
+
+
 
 
 #monthHeading {
