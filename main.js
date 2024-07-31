@@ -5,7 +5,7 @@ document.querySelector('#app').innerHTML = `
   <div>
     <div id="wrapper">
         <div id="navBar">
-            <div id="leftButton" class="menuButton" title="tap to toggle month/year menu"></div>
+            <div id="leftButton" class="menuButton"></div>
             <div id="monthAndYearMenu" class="hideMenu" inert>
                 <div id="monthMenu">
                     <label class="menuLabel">Month: </label>
@@ -17,7 +17,7 @@ document.querySelector('#app').innerHTML = `
                 </div>
                 <button id="submit">Go</button>
             </div>
-            <div id="rightButton" class="menuButton"></div>
+            <div id="rightButton" class="menuButton" title="tap to toggle month/year menu"></div>
         </div>
         <div id="monthHeading" class="calendarContent"><h1 id="month"></h1><h1 id="year"></h1></div>
         <div id="weekdayHeading" class="calendarContent"></div>
