@@ -19,9 +19,9 @@ document.querySelector('#app').innerHTML = `
             </div>
             <div id="rightButton" class="menuButton"></div>
         </div>
-        <div id="monthHeading"><h1 id="month"></h1><h1 id="year"></h1></div>
-        <div id="weekdayHeading"></div>
-        <div id="dateGrid"></div>
+        <div id="monthHeading" class="calendarContent"><h1 id="month"></h1><h1 id="year"></h1></div>
+        <div id="weekdayHeading" class="calendarContent"></div>
+        <div id="dateGrid" class="calendarContent"></div>
     </div>
 
   </div>
@@ -94,7 +94,7 @@ function createCalendar(date) {
     for(let i = 1; i < 36; i++){
         let dateBlock = document.createElement("div");
         dateBlock.classList.add("dateBlock");
-
+        //fills in dates from previous month in empty spaces at beginning of current month
         if(i < firstIndex){
             let number = document.createElement("div");
             number.inert = true;
@@ -104,7 +104,7 @@ function createCalendar(date) {
             dateBlock.setAttribute("data-date",dateString(month,count,year));
             priorCountUp++;
         }
-
+        //fills in dates of current month
         else if(i >= firstIndex && i <= lastIndex){
             let number = document.createElement("div");
             number.inert = true;
@@ -116,7 +116,7 @@ function createCalendar(date) {
             }
             count++;
         }
-
+        //fills in dates from following month in empty spaces at end of current month
         else if(i > lastIndex){
             let number = document.createElement("div");
             number.inert = true;
@@ -136,17 +136,55 @@ function createCalendar(date) {
 
 }
 
-
 function updateCalendar() {
 
-    const month = document.querySelector("#monthSelect").value;
-    const year = document.querySelector("#yearSelect").value;
+    //booleans to track changes and control transitions
+    let yearChange = false;
+    let monthChange = false;
 
-    const newDate = new Date(month+"-1-"+year.toString());
+    //case of same month different year
+    if(document.querySelector("#month").innerHTML === document.querySelector("#monthSelect").value  &&
+        document.querySelector("#year").innerHTML !== document.querySelector("#yearSelect").value) {
+        yearChange = true;
+        document.querySelector("#year").style.opacity = "0";
+        document.querySelector("#weekdayHeading").style.opacity = "0";
+        document.querySelector("#dateGrid").style.opacity = "0";
+    }
+    //case of same year different month
+    else if(document.querySelector("#month").innerHTML !== document.querySelector("#monthSelect").value  &&
+        document.querySelector("#year").innerHTML === document.querySelector("#yearSelect").value) {
+        monthChange = true;
+        document.querySelector("#month").style.opacity = "0";
+        document.querySelector("#weekdayHeading").style.opacity = "0";
+        document.querySelector("#dateGrid").style.opacity = "0";
+    }
+    //case of different year different month
+    else if(document.querySelector("#month").innerHTML !== document.querySelector("#monthSelect").value  &&
+        document.querySelector("#year").innerHTML !== document.querySelector("#yearSelect").value){
+        document.querySelector("#monthHeading").style.opacity = "0";
+        document.querySelector("#weekdayHeading").style.opacity = "0";
+        document.querySelector("#dateGrid").style.opacity = "0";
+    }
+    //if no change no transition happens
 
-    document.querySelector("#dateGrid").replaceChildren();
 
-    createCalendar(newDate);
+    //timeout to delay reappearance while new data is displayed
+    setTimeout(() => {
+        const month = document.querySelector("#monthSelect").value;
+        const year = document.querySelector("#yearSelect").value;
+
+        const newDate = new Date(month+"-1-"+year.toString());
+
+        document.querySelector("#dateGrid").replaceChildren();
+
+        createCalendar(newDate);
+
+        if(yearChange === true){document.querySelector("#year").style.opacity = "1";}
+        else if(monthChange === true){document.querySelector("#month").style.opacity = "1";}
+        else{document.querySelector("#monthHeading").style.opacity = "1";}
+        document.querySelector("#weekdayHeading").style.opacity = "1";
+        document.querySelector("#dateGrid").style.opacity = "1";
+    }, 600);
 }
 
 document.querySelector("#submit").addEventListener("click",updateCalendar);
@@ -200,7 +238,6 @@ for(let i = 2050; i >= 1900; i--) {
 }
 
 createCalendar(today);
-
 
 
 
