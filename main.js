@@ -5,8 +5,14 @@ document.querySelector('#app').innerHTML = `
   <div>
     <div id="wrapper">
         <div id="navBar">
-            <div id="leftButton" class="menuButton"></div>
-            <div id="monthAndYearMenu" class="hideMenu" inert>
+            <div id="leftButton" class="menuButton" title="tap to toggle additional functions menu"></div>
+            <div id="otherFunctionsMenu" class="">
+                <button id="nextMonth" class="functionButton">Next Month</button>
+                <button id="lastMonth" class="functionButton">Previous Month</button>
+                <button id="thisMonth" class="functionButton">Current Month</button>
+                <button id="clear" class="functionButton">Clear Highlights</button>
+            </div>
+            <div id="monthAndYearMenu" class="">
                 <div id="monthMenu">
                     <label class="menuLabel">Month: </label>
                     <select id="monthSelect"></select>
@@ -27,25 +33,71 @@ document.querySelector('#app').innerHTML = `
   </div>
 `
 
+//current date
+const today = new Date();
+
+const day = today.getDate();
+const month =  today.getMonth();
+const year = today.getFullYear();
+
+//array of month names
+const months = ['January','February','March','April','May','June','July',
+    'August','September','October','November','December'];
+
+//array of weekday names
+const weekdays = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+
+
+//fades element in and out while also removing from or returning to layout using display property
+function removeFadeOut( el, speed ) {
+    let seconds = speed/1000;
+    el.style.transition = "opacity "+seconds+"s ease-in-out";
+
+    if(window.getComputedStyle(el).getPropertyValue("display") === "grid") {
+        el.style.opacity = "0";
+        setTimeout(function () {
+            el.style.display = "none";
+        }, speed);
+    }
+    else{
+        el.style.display = "grid";
+        setTimeout(function () {
+            el.style.opacity = "1";
+        }, speed);
+    }
+}
+
+const menuDelay = 170;
+const switchoverDelay = menuDelay + 1;
+
+//menus will disappear alternately to avoid cluttering layout; only one can be open at once
+document.querySelector("#leftButton").addEventListener("click", () =>
+{
+    if(window.getComputedStyle(document.getElementById('monthAndYearMenu')).getPropertyValue("display") === "grid"){
+        removeFadeOut(document.getElementById('monthAndYearMenu'), menuDelay);
+        setTimeout(function () {
+            removeFadeOut(document.getElementById('otherFunctionsMenu'), menuDelay);
+        }, switchoverDelay);
+    }
+    else{removeFadeOut(document.getElementById('otherFunctionsMenu'), menuDelay)}
+});
+
+document.querySelector("#rightButton").addEventListener("click", () =>
+{
+    if(window.getComputedStyle(document.getElementById('otherFunctionsMenu')).getPropertyValue("display") === "grid"){
+        removeFadeOut(document.getElementById('otherFunctionsMenu'), menuDelay);
+        setTimeout(function () {
+            removeFadeOut(document.getElementById('monthAndYearMenu'), menuDelay);
+        }, switchoverDelay);
+    }
+    else{removeFadeOut(document.getElementById('monthAndYearMenu'), menuDelay)}
+});
+
+
 //generates string representing current date
 function dateString(month, day, year) {
     return (month+1).toString()+"-"+day.toString()+"-"+year.toString()
 }
-
-function showMenu() {
-    const menu = document.querySelector("#monthAndYearMenu");
-    if (menu.classList[0] === "showMenu") {
-        menu.classList.remove("showMenu");
-        menu.classList.add("hideMenu");
-        menu.inert = true;
-    } else {
-        menu.classList.remove("hideMenu");
-        menu.classList.add("showMenu");
-        menu.inert = false;
-    }
-}
-
-document.querySelector("#rightButton").addEventListener("click",showMenu);
 
 function createCalendar(date) {
 
@@ -136,31 +188,31 @@ function createCalendar(date) {
 
 }
 
-function updateCalendar() {
+function updateCalendar(month, year) {
 
     //booleans to track changes and control transitions
     let yearChange = false;
     let monthChange = false;
 
     //case of same month different year
-    if(document.querySelector("#month").innerHTML === document.querySelector("#monthSelect").value  &&
-        document.querySelector("#year").innerHTML !== document.querySelector("#yearSelect").value) {
+    if(document.querySelector("#month").innerHTML === month  &&
+        document.querySelector("#year").innerHTML !== year) {
         yearChange = true;
         document.querySelector("#year").style.opacity = "0";
         document.querySelector("#weekdayHeading").style.opacity = "0";
         document.querySelector("#dateGrid").style.opacity = "0";
     }
     //case of same year different month
-    else if(document.querySelector("#month").innerHTML !== document.querySelector("#monthSelect").value  &&
-        document.querySelector("#year").innerHTML === document.querySelector("#yearSelect").value) {
+    else if(document.querySelector("#month").innerHTML !== month  &&
+        document.querySelector("#year").innerHTML === year) {
         monthChange = true;
         document.querySelector("#month").style.opacity = "0";
         document.querySelector("#weekdayHeading").style.opacity = "0";
         document.querySelector("#dateGrid").style.opacity = "0";
     }
     //case of different year different month
-    else if(document.querySelector("#month").innerHTML !== document.querySelector("#monthSelect").value  &&
-        document.querySelector("#year").innerHTML !== document.querySelector("#yearSelect").value){
+    else if(document.querySelector("#month").innerHTML !== month  &&
+        document.querySelector("#year").innerHTML !== year){
         document.querySelector("#monthHeading").style.opacity = "0";
         document.querySelector("#weekdayHeading").style.opacity = "0";
         document.querySelector("#dateGrid").style.opacity = "0";
@@ -170,8 +222,6 @@ function updateCalendar() {
 
     //timeout to delay reappearance while new data is displayed
     setTimeout(() => {
-        const month = document.querySelector("#monthSelect").value;
-        const year = document.querySelector("#yearSelect").value;
 
         const newDate = new Date(month+"-1-"+year.toString());
 
@@ -187,25 +237,60 @@ function updateCalendar() {
     }, 600);
 }
 
-document.querySelector("#submit").addEventListener("click",updateCalendar);
+//changes calendar to selected month/year
+document.querySelector("#submit").addEventListener("click", () =>
+{
+    const month = document.querySelector("#monthSelect").value;
+    const year = document.querySelector("#yearSelect").value;
+    updateCalendar(month,year);
+});
 
+//advances displayed month by one
+document.querySelector("#nextMonth").addEventListener("click", () =>
+{
+    const month = document.querySelector("#month").innerHTML;
+    const year = document.querySelector("#year").innerHTML;
+    if(month === "December"){
+        updateCalendar('January',(parseInt(year)+1).toString());
+    }
+    else{
+        const monthIndex = months.indexOf(month);
+        updateCalendar(months[monthIndex + 1],year);
+    }
+});
 
-//current date
-const today = new Date();
+//changes displayed month to prior month
+document.querySelector("#lastMonth").addEventListener("click", () =>
+{
+    const month = document.querySelector("#month").innerHTML;
+    const year = document.querySelector("#year").innerHTML;
+    if(month === "January"){
+        updateCalendar('December',(parseInt(year)-1).toString());
+    }
+    else{
+        const monthIndex = months.indexOf(month);
+        updateCalendar(months[monthIndex - 1],year);
+    }
+});
 
-const day = today.getDate();
-const month =  today.getMonth();
-const year = today.getFullYear();
+//changes displayed month to current month
+document.querySelector("#thisMonth").addEventListener("click", () =>
+{
+    const month = today.getMonth();
+    const year = today.getFullYear();
+    updateCalendar(months[month],year.toString());
+});
 
-console.log(month);
+//removes click-highlighting from dates
+document.querySelector("#clear").addEventListener("click", () =>
+{
+    const highlightedDates = document.querySelectorAll(".highlighted");
 
+    highlightedDates.forEach((elem) =>{
+        elem.classList.remove("highlighted");
+    });
+});
 
-//array of month names
-const months = ['January','February','March','April','May','June','July',
-    'August','September','October','November','December'];
-
-//array of weekday names
-const weekdays = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
 
 //generates headings for each weekday "column" using array
 weekdays.forEach((element) => {
@@ -238,8 +323,6 @@ for(let i = 2050; i >= 1900; i--) {
 }
 
 createCalendar(today);
-
-
 
 
 

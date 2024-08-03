@@ -28,6 +28,31 @@
 
 }
 
+.fade-out {
+  animation: fade 2s;
+  -webkit-animation: fade 2s;
+  -moz-animation: fade 2s;
+}
+
+.fade-in {
+  animation: unfade 2s;
+  -webkit-animation: unfade 2s;
+  -moz-animation: unfade 2s;
+}
+
+/* Animate opacity */
+@keyframes fade {
+  from { opacity: 1 }
+  to { opacity: 0 }
+}
+
+@keyframes unfade {
+  from { opacity: 0 }
+  to { opacity: 1 }
+}
+
+
+
 a {
   font-weight: 500;
   color: #646cff;
@@ -76,7 +101,7 @@ h1 {
 
 #navBar {
   display: grid;
-  grid-template-columns: 1fr min-content min-content;
+  grid-template-columns: min-content 1fr min-content min-content;
   grid-auto-flow: column;
   align-content: end;
   height: 3vw;
@@ -95,19 +120,43 @@ h1 {
 #rightButton {
   justify-self: right;
   left: 3vw;
+  width: 2vw;
+  height: 2vw;
 }
 
 #leftButton {
   justify-self: left;
   left: -3vw;
+  width: 2vw;
+  height: 2vw;
 }
 
-#rightButton:hover {
-  background-color: #6167c0;
+#otherFunctionsMenu {
+  display: none;
+  opacity: 0;
+  gap: 0.4rem;
+  grid-template-columns: repeat(4, auto);
+  grid-auto-flow: column;
+  height: 2vw;
+  /*width: 30vw;*/
+  position: relative;
+  left: -2.5vw;
+  align-content: center;
+  font-weight: bold;
 }
+
+.functionButton {
+  background-color: var(--grid-bg-color);
+  color: var(--grid-font-color);
+  font-weight: bold;
+  padding: 2px;
+  /*white-space: nowrap;*/
+}
+
 
 #monthAndYearMenu {
-  display: grid;
+  display: none;
+  opacity: 0;
   gap: 0.4rem;
   grid-template-columns: min-content min-content min-content;
   grid-auto-flow: column;
@@ -115,6 +164,7 @@ h1 {
   /*width: 30vw;*/
   position: relative;
   left: 2.5vw;
+  justify-self: right;
   align-content: center;
   font-weight: bold;
 }
@@ -233,6 +283,7 @@ option {
   font-family: "Poppins", Tahoma, sans-serif;
   font-size: 1.5vw;
   font-weight: bold;
+  transition: background-color 0.6s ease .01s;
 }
 
 .todayBlock {
@@ -245,6 +296,32 @@ option {
 
 .highlighted {
   background-color: #6167c0;
+  /*zoom: 200%;*/
+  /*z-index: 99;*/
+  /*width: 10rem;*/
+  /*height: 10rem;*/
+  /*border-style: solid;*/
+}
+
+/*reserving hover effects for larger screens*/
+@media only screen and (min-width: 801px) {
+
+  .menuButton:hover {
+    background-color: #6167c0;
+  }
+
+  .functionButton:hover, #submit:hover {
+    background-color: color-mix(in srgb, var(--grid-bg-color), rgba(162, 199, 67, 0.71) 60%);
+  }
+
+  .dateBlock:hover {
+    background-color: color-mix(in srgb, var(--grid-bg-color), rgba(162, 199, 67, 0.71) 60%);
+  }
+
+  .highlighted:hover {
+    background-color: color-mix(in srgb, #6167c0, rgb(211, 112, 238) 60%);
+  }
+
 }
 
 
@@ -280,6 +357,7 @@ option {
     margin-right: auto;
     margin-left: auto;
   }
+
 
   #monthHeading {
     display: grid;
