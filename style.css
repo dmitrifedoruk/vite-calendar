@@ -10,6 +10,15 @@
   --grid-bg-color: rgb(144, 78, 162);
   --grid-font-color: #c2af30;
 
+  --menu-button-hover: #6167c0;
+
+  --function-button-hover: color-mix(in srgb, var(--grid-bg-color), slateblue 60%);
+
+  --highlighted-hover: color-mix(in srgb, var(--grid-bg-color), rgba(8, 113, 136, 0.71) 60%);
+
+  --standard-hover: color-mix(in srgb, #6167c0, rgb(211, 112, 238) 60%);
+
+
   --border-width: 2px;
 
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
@@ -307,19 +316,19 @@ option {
 @media only screen and (min-width: 801px) {
 
   .menuButton:hover {
-    background-color: #6167c0;
+    background-color: var(--menu-button-hover);
   }
 
   .functionButton:hover, #submit:hover {
-    background-color: color-mix(in srgb, var(--grid-bg-color), rgba(162, 199, 67, 0.71) 60%);
+    background-color: var(--function-button-hover);
   }
 
   .dateBlock:hover {
-    background-color: color-mix(in srgb, var(--grid-bg-color), rgba(162, 199, 67, 0.71) 60%);
+    background-color: var(--standard-hover);
   }
 
   .highlighted:hover {
-    background-color: color-mix(in srgb, #6167c0, rgb(211, 112, 238) 60%);
+    background-color: var(--highlighted-hover);
   }
 
 }
