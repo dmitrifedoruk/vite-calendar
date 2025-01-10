@@ -142,8 +142,19 @@ function createCalendar(date) {
     let count = 1;
     let postCount = 1;
 
+
     //generates dates for grid inserting correct date numbers for each
-    for(let i = 1; i < 36; i++){
+    let gridLimit = 36;
+
+    //checks for cases where 6 rows of dates are needed
+    if(daysInMonth === 31 && firstDayOfWeek > 4){
+        gridLimit = 43;
+    }
+    if(daysInMonth === 30 && firstDayOfWeek > 5){
+        gridLimit = 43;
+    }
+
+    for(let i = 1; i < gridLimit; i++){
         let dateBlock = document.createElement("div");
         dateBlock.classList.add("dateBlock");
         //fills in dates from previous month in empty spaces at beginning of current month
