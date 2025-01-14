@@ -18,8 +18,11 @@
 
   --standard-hover: color-mix(in srgb, #6167c0, rgb(211, 112, 238) 60%);
 
-
   --border-width: 2px;
+
+  --moon-left: 150px;
+  --moon-top: 50px;
+  --moon-diameter: 2vw;
 
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   /*line-height: 1.5;*/
@@ -28,6 +31,8 @@
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
   background-color: #242424;
+
+
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -283,6 +288,7 @@ option {
 .dateBlock {
   box-sizing: content-box;
   display: grid;
+  grid-template-columns: 1fr 1fr;
   justify-content: left;
   align-content: start;
   padding: 5px;
@@ -293,6 +299,11 @@ option {
   font-size: 1.5vw;
   font-weight: bold;
   transition: background-color 0.6s ease .01s;
+}
+
+.dateNumber {
+  grid-column: 1 / 2;
+  justify-self: left;
 }
 
 .todayBlock {
@@ -311,6 +322,41 @@ option {
   /*height: 10rem;*/
   /*border-style: solid;*/
 }
+
+.object {
+  position: absolute;
+  border-radius: 50%;
+  /*background-color: #646cff;*/
+}
+
+.moonElement {
+  height: var(--moon-diameter);
+  width: var(--moon-diameter);
+  /*position: relative;*/
+}
+
+.moonElement2 {
+  height: var(--moon-diameter);
+  width: var(--moon-diameter);
+  /*position: relative;*/
+}
+
+.moonContainer {
+  /*position: absolute;*/
+  /*left: var(--moon-left);*/
+  /*top: var(--moon-top);*/
+  height: var(--moon-diameter);
+  width: var(--moon-diameter);
+  transform: rotateZ(23deg);
+  grid-column: 2 / 3;
+  justify-self: right;
+}
+
+
+
+
+
+
 
 /*reserving hover effects for larger screens*/
 @media only screen and (min-width: 801px) {
@@ -404,6 +450,7 @@ option {
 
   .dateBlock {
     display: grid;
+    grid-template-columns: 1fr 1fr;
     justify-content: left;
     align-content: start;
     padding: 5px;
@@ -413,6 +460,10 @@ option {
     font-family: "Poppins", Tahoma, sans-serif;
     font-size: 2.25vw;
     font-weight: bold;
+  }
+
+  .dateNumber {
+    grid-column: 1 / 2;
   }
 
 

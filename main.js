@@ -142,7 +142,6 @@ function createCalendar(date) {
     let count = 1;
     let postCount = 1;
 
-
     //generates dates for grid inserting correct date numbers for each
     let gridLimit = 36;
 
@@ -154,26 +153,38 @@ function createCalendar(date) {
         gridLimit = 43;
     }
 
+    let dateID = "";
+
     for(let i = 1; i < gridLimit; i++){
         let dateBlock = document.createElement("div");
         dateBlock.classList.add("dateBlock");
         //fills in dates from previous month in empty spaces at beginning of current month
         if(i < firstIndex){
             let number = document.createElement("div");
+            number.classList.add("dateNumber");
             number.inert = true;
             number.innerText = priorCountUp.toString();
             number.classList.add("priorAndNextMonth");
             dateBlock.appendChild(number);
-            dateBlock.setAttribute("data-date",dateString(month,count,year));
+            let priorCountMonth = month - 1;
+            let priorCountYear = year;
+            if(month === 0) {
+                priorCountMonth = 11;
+                priorCountYear = year - 1
+            }
+            dateID = dateString(priorCountMonth,priorCountUp,priorCountYear)
+            dateBlock.setAttribute("data-date",dateID);
             priorCountUp++;
         }
         //fills in dates of current month
         else if(i >= firstIndex && i <= lastIndex){
             let number = document.createElement("div");
+            number.classList.add("dateNumber");
             number.inert = true;
             number.innerText = count.toString();
             dateBlock.appendChild(number);
-            dateBlock.setAttribute("data-date",dateString(month,count,year));
+            dateID = dateString(month,count,year);
+            dateBlock.setAttribute("data-date",dateID);
             if(Date.parse(dateString(month,count,year)) === Date.parse(dateString(currentMonth,currentDay,currentYear))){
                 dateBlock.classList.add("todayBlock");
             }
@@ -182,19 +193,65 @@ function createCalendar(date) {
         //fills in dates from following month in empty spaces at end of current month
         else if(i > lastIndex){
             let number = document.createElement("div");
+            number.classList.add("dateNumber");
             number.inert = true;
             number.innerText = postCount.toString();
             number.classList.add("priorAndNextMonth");
             dateBlock.appendChild(number);
-            dateBlock.setAttribute("data-date",dateString(month,count,year));
+            let postCountMonth = month + 1;
+            let postCountYear = year;
+            if(month === 11) {
+                postCountMonth = 0;
+                postCountYear = year + 1;
+            }
+            dateID = dateString(postCountMonth,postCount,postCountYear)
+            dateBlock.setAttribute("data-date", dateID);
             postCount++;
         }
+
+        let moonContainer = document.createElement("div");
+        moonContainer.classList.add("moonContainer");
+        moonContainer.setAttribute("id", "moonContainer_"+dateID);
+
+        let moonElement = document.createElement("div");
+        moonElement.classList.add("object");
+        moonElement.classList.add("moonElement");
+        moonElement.setAttribute("id", "moonElement_"+dateID);
+
+        let moonElement2 = document.createElement("div");
+        moonElement2.classList.add("object");
+        moonElement2.classList.add("moonElement2");
+        moonElement2.setAttribute("id", "moonElement2_"+dateID);
+
+        moonContainer.appendChild(moonElement);
+        moonContainer.appendChild(moonElement2);
+        dateBlock.appendChild(moonContainer);
+
 
         dateBlock.addEventListener("click",function (e){
             this.classList.toggle("highlighted")
         });
 
         document.querySelector('#dateGrid').appendChild(dateBlock);
+    }
+
+}
+
+function setAllMoonPhases() {
+    let moons = document.getElementsByClassName("moonContainer");
+
+    for (let i = 0; i < moons.length; i++) {
+        let dateName = moons.item(i).getAttribute("id").split("_")[1];
+        let date = Date.parse(dateName);
+
+        //adding time to advance to evening of date
+        let lunationNumber = getLunationNumber(date + 64800);
+
+        const element = document.getElementById("moonElement_"+dateName);
+        const element2 = document.getElementById("moonElement2_"+dateName);
+
+        setMoonPhase(element,element2,lunationNumber);
+
     }
 
 }
@@ -239,6 +296,7 @@ function updateCalendar(month, year) {
         document.querySelector("#dateGrid").replaceChildren();
 
         createCalendar(newDate);
+        setAllMoonPhases();
 
         if(yearChange === true){document.querySelector("#year").style.opacity = "1";}
         else if(monthChange === true){document.querySelector("#month").style.opacity = "1";}
@@ -333,7 +391,88 @@ for(let i = 2050; i >= 1900; i--) {
     document.querySelector('#yearSelect').appendChild(yearOption);
 }
 
+
+function getLunationNumber(date) {
+
+    let lunarDate = date / 1000;
+
+    // The duration in days of a lunar cycle
+    let lunardays = 29.53058770576;
+    // Seconds in lunar cycle
+    let lunarsecs = lunardays * (24 * 60 * 60);
+    // Date time of first new moon in year 2000
+    let new2000 = Math.round(Date.UTC(2000, 0, 6, 18, 14, 0) / 1000);
+
+
+    // Calculate seconds between date and new moon 2000
+    totalsecs = lunarDate - new2000;
+
+    // Calculate modulus to drop completed cycles
+    // Note: for real numbers use fmod() instead of % operator
+    let currentsecs = totalsecs % lunarsecs;
+
+    // If negative number (date before new moon 2000) add $lunarsecs
+    if ( currentsecs < 0 ) {
+        currentsecs += lunarsecs;
+    }
+
+    // Calculate the fraction of the moon cycle
+    return currentsecs / lunarsecs;
+
+}
+
+function setMoonPhase(elem1, elem2, ln) {
+
+    const dark = "hsl(213, 38%, 74%)";
+    //const dark = "transparent";
+    console.log(dark);
+    //const dark = "#3f4d51";
+    const light = "rgba(228,227,168)";
+    const darkToLight = "linear-gradient(90deg, "+dark+" 50%, "+light+" 50%)";
+    const lightToDark = "linear-gradient(90deg, "+light+" 50%, "+dark+" 50%)";
+
+
+    if(ln >= 0 && ln < .25){
+        console.log('waxing crescent');
+        elem1.style.background = darkToLight;
+        elem2.style.background = dark;
+        const degrees = (ln/.25)*90;
+        elem2.style.transform = "rotateY("+degrees.toString()+"deg)";
+    }
+
+    else if(ln >= .25 && ln < .5){
+        console.log('waxing gibbous');
+        elem1.style.background = darkToLight;
+        elem2.style.background = light;
+        const degrees = ((ln-.25)/.25)*90;
+        elem2.style.transform = "rotateY("+(degrees+90).toString()+"deg)";
+    }
+
+    else if(ln >= .5 && ln < .75){
+        console.log('waning gibbous');
+        elem1.style.background = lightToDark;
+        elem2.style.background = light;
+        const degrees = ((ln-.5)/.25)*90;
+        elem2.style.transform = "rotateY("+degrees.toString()+"deg)";
+        //elem2.style.dropShadow = "-20px 0px 5px inset "+bgDark;
+    }
+
+    else if(ln >= .75 && ln < 1){
+        console.log('waning crescent');
+        elem1.style.background = lightToDark;
+        elem2.style.background = dark;
+        const degrees = ((ln-.75)/.25)*90;
+        elem2.style.transform = "rotateY("+(degrees+90).toString()+"deg)";
+    }
+
+    else{
+        elem1.style.background = darkToLight;
+        elem2.style.background = dark;
+    }
+}
+
 createCalendar(today);
+setAllMoonPhases();
 
 
 
