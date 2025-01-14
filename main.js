@@ -405,10 +405,9 @@ function getLunationNumber(date) {
 
 
     // Calculate seconds between date and new moon 2000
-    totalsecs = lunarDate - new2000;
+    let totalsecs = lunarDate - new2000;
 
     // Calculate modulus to drop completed cycles
-    // Note: for real numbers use fmod() instead of % operator
     let currentsecs = totalsecs % lunarsecs;
 
     // If negative number (date before new moon 2000) add $lunarsecs
