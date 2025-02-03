@@ -350,6 +350,7 @@ option {
   transform: rotateZ(23deg);
   grid-column: 2 / 3;
   justify-self: right;
+  transition: opacity 0.5s ease-in-out .02s;
 }
 
 

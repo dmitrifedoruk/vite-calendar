@@ -343,8 +343,10 @@ document.querySelector("#lastMonth").addEventListener("click", () =>
 });
 
 //changes displayed month to current month
+//new today's date is loaded in case page has not been reloaded for more than a day
 document.querySelector("#thisMonth").addEventListener("click", () =>
 {
+    const today = new Date();
     const month = today.getMonth();
     const year = today.getFullYear();
     updateCalendar(months[month],year.toString());
