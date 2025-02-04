@@ -10,6 +10,7 @@ document.querySelector('#app').innerHTML = `
                 <button id="nextMonth" class="functionButton">Next Month</button>
                 <button id="lastMonth" class="functionButton">Previous Month</button>
                 <button id="thisMonth" class="functionButton">Current Month</button>
+                <button id="toggleMoon" class="functionButton">Toggle Moon</button>
                 <button id="clear" class="functionButton">Clear Highlights</button>
             </div>
             <div id="monthAndYearMenu" class="">
@@ -245,7 +246,7 @@ function setAllMoonPhases() {
         let date = Date.parse(dateName);
 
         //adding time to advance to evening of date
-        let lunationNumber = getLunationNumber(date + 64800);
+        let lunationNumber = getLunationNumber(date);
 
         const element = document.getElementById("moonElement_"+dateName);
         const element2 = document.getElementById("moonElement2_"+dateName);
@@ -306,6 +307,8 @@ function updateCalendar(month, year) {
     }, 600);
 }
 
+//event listeners for function buttons
+
 //changes calendar to selected month/year
 document.querySelector("#submit").addEventListener("click", () =>
 {
@@ -343,7 +346,7 @@ document.querySelector("#lastMonth").addEventListener("click", () =>
 });
 
 //changes displayed month to current month
-//new today's date is loaded in case page has not been reloaded for more than a day
+//new date is loaded in case page has been left open for more than a day
 document.querySelector("#thisMonth").addEventListener("click", () =>
 {
     const today = new Date();
@@ -351,6 +354,17 @@ document.querySelector("#thisMonth").addEventListener("click", () =>
     const year = today.getFullYear();
     updateCalendar(months[month],year.toString());
 });
+
+//hides lunar phase graphics
+document.querySelector("#toggleMoon").addEventListener("click", () =>
+{
+    const highlightedDates = document.querySelectorAll(".moonContainer");
+
+    highlightedDates.forEach((elem) =>{
+        elem.classList.toggle("hideElement");
+    });
+});
+
 
 //removes click-highlighting from dates
 document.querySelector("#clear").addEventListener("click", () =>
@@ -412,7 +426,7 @@ function getLunationNumber(date) {
     // Calculate modulus to drop completed cycles
     let currentsecs = totalsecs % lunarsecs;
 
-    // If negative number (date before new moon 2000) add $lunarsecs
+    // If negative number (date before new moon 2000) add lunarsecs
     if ( currentsecs < 0 ) {
         currentsecs += lunarsecs;
     }

@@ -233,6 +233,11 @@ option {
   transition: opacity 0.5s ease-in-out .02s;
 }
 
+.hideElement {
+  transition: opacity 0.5s ease-in-out;
+  opacity: 0;
+}
+
 
 
 
