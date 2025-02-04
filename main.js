@@ -48,6 +48,8 @@ const months = ['January','February','March','April','May','June','July',
 //array of weekday names
 const weekdays = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
 
+let showMoon = true;
+
 
 //fades element in and out while also removing from or returning to layout using display property
 function removeFadeOut( el, speed ) {
@@ -239,7 +241,19 @@ function createCalendar(date) {
 }
 
 function setAllMoonPhases() {
-    let moons = document.getElementsByClassName("moonContainer");
+    let moons = document.querySelectorAll(".moonContainer");
+
+    //check if toggle is on or off to show moon graphics
+    if(showMoon === false){
+        moons.forEach((elem) =>{
+            elem.classList.add("hideElement");
+        });
+    }
+    else{
+        moons.forEach((elem) =>{
+            elem.classList.remove("hideElement");
+        });
+    }
 
     for (let i = 0; i < moons.length; i++) {
         let dateName = moons.item(i).getAttribute("id").split("_")[1];
@@ -358,9 +372,12 @@ document.querySelector("#thisMonth").addEventListener("click", () =>
 //hides lunar phase graphics
 document.querySelector("#toggleMoon").addEventListener("click", () =>
 {
-    const highlightedDates = document.querySelectorAll(".moonContainer");
+    const moons = document.querySelectorAll(".moonContainer");
 
-    highlightedDates.forEach((elem) =>{
+    //toggle boolean to make persistent as view changes
+    showMoon = !showMoon;
+
+    moons.forEach((elem) =>{
         elem.classList.toggle("hideElement");
     });
 });
@@ -424,9 +441,10 @@ function getLunationNumber(date) {
     let totalsecs = lunarDate - new2000;
 
     // Calculate modulus to drop completed cycles
+    // Note: for real numbers use fmod() instead of % operator
     let currentsecs = totalsecs % lunarsecs;
 
-    // If negative number (date before new moon 2000) add lunarsecs
+    // If negative number (date before new moon 2000) add $lunarsecs
     if ( currentsecs < 0 ) {
         currentsecs += lunarsecs;
     }
@@ -488,7 +506,6 @@ function setMoonPhase(elem1, elem2, ln) {
 
 createCalendar(today);
 setAllMoonPhases();
-
 
 
 
